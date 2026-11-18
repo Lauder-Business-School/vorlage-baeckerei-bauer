@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+/* ─── Bäckerei Bauer Design Tokens ─────────────────────────────────────── */
+:root {
+  /* Bauer-Blau */
+  --blue-900: #0E3461;
+  --blue-800: #134479;
+  --blue-700: #195696;
+  --blue-500: #3070B4;
+  --blue-300: #8DB1D6;
+  --blue-150: #C8DAEC;
+  --blue-100: #DEE9F4;
+  --blue-50:  #EEF3F9;
+
+  /* Bauer-Gold */
+  --gold-700: #B7791C;
+  --gold-600: #CD8B22;
+  --gold-500: #E19934;
+  --gold-300: #EEBE76;
+  --gold-150: #F6DBB0;
+  --gold-100: #FAEAD0;
+  --gold-50:  #FCF5E8;
+
+  /* Neutral */
+  --paper:     #FBFAF7;
+  --cream:     #F4F1EA;
+  --line:      #E8E3D9;
+  --stone-500: #6E6A61;
+  --stone-700: #3A3833;
+  --ink:       #1C1B18;
+}
+
+@theme inline {
+  --font-sans: var(--font-figtree, system-ui, sans-serif);
+  --font-serif: var(--font-vollkorn, Georgia, serif);
+}
+
+@theme {
+  /* Brand-Blau */
+  --color-brand:         var(--blue-500);       /* #3070B4 — primäres Bauer-Blau */
+  --color-brand-mid:     var(--blue-700);       /* #195696 — mittleres Blau */
+  --color-brand-deeper:  var(--blue-800);       /* #134479 — tiefer Gradient-Mittelton */
+  --color-brand-dark:    var(--blue-900);       /* #0E3461 — tiefes Nachtblau (Footer, Gradienten) */
+  --color-brand-light:   var(--blue-300);       /* #8DB1D6 — sanftes Hellblau */
+  --color-brand-subtle:  var(--blue-50);        /* #EEF3F9 — kaum sichtbarer Hauch */
+
+  /* Bauer-Gold (ersetzt Orange) */
+  --color-accent:        var(--gold-500);       /* #E19934 — warmes Gold */
+  --color-accent-dark:   var(--gold-700);       /* #B7791C — dunkles Gold */
+  --color-accent-border: var(--gold-300);       /* #EEBE76 — Gold-Rand */
+  --color-accent-light:  var(--gold-150);       /* #F6DBB0 — helles Gold (Rand/Trennlinie) */
+  --color-accent-muted:  var(--gold-50);        /* #FCF5E8 — Gold-Hauch */
+
+  /* Hintergründe */
+  --color-page:         var(--paper);           /* #FBFAF7 — warmes Papierweiß */
+  --color-surface:      var(--cream);           /* #F4F1EA — Creme */
+  --color-inverse:      #FFFFFF;
+
+  /* Schrift */
+  --color-ink:           var(--ink);            /* #1C1B18 */
+  --color-ink-secondary: var(--stone-700);      /* #3A3833 */
+  --color-ink-muted:     var(--stone-500);      /* #6E6A61 */
+
+  /* Linien */
+  --color-rule:         var(--line);            /* #E8E3D9 — warme Trennlinie */
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 7.5rem; /* Nav 72px + SortimentCategoryNav 44px + Puffer */
+}
+
+/* CSS scroll-driven reveal — no JS, uses animation-timeline: view() */
+@keyframes scroll-reveal {
+  from { opacity: 0; transform: translateY(1.25rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@supports (animation-timeline: view()) {
+  .scroll-reveal {
+    animation: scroll-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 5% entry 30%;
+  }
+}
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Skip-to-content link (keyboard accessibility) */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--blue-700);
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.1s;
+}
+.skip-to-content:focus {
+  top: 1rem;
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Ticker marquee animation */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.333%); }
+}
+
+/* Logo marquee strip */
+@keyframes logo-marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-logo-marquee {
+  animation: logo-marquee 30s linear infinite;
+}
+
+/* Focus-visible ring — Bauer-Blau */
+:focus-visible {
+  outline: 2px solid var(--blue-700);
+  outline-offset: 3px;
+}
+
+/* Print: hide nav, footer, videos, back-to-top */
+@media print {
+  nav,
+  footer,
+  iframe,
+  button[aria-label="Zurück nach oben"],
+  .animate-logo-marquee {
+    display: none !important;
+  }
+  body {
+    color: #000;
+    background: #fff;
+  }
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    color: #666;
+  }
+}
+
+/* Touch-action: prevent 300ms tap delay on iOS */
+a, button, [role="button"] {
+  touch-action: manipulation;
+}
+
+/* ScrollReveal — JS-gesteuerte Einblend-Animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .ticker-track,
+  .animate-logo-marquee {
+    animation: none !important;
+    transform: none !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

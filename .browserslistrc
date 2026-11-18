@@ -1,0 +1,6 @@
+# Zielt auf moderne Browser ab — eliminiert unnötige Polyfills (~14 KiB)
+# Unterstützt >95% der aktuellen Nutzer (Stand 2025)
+Chrome >= 90
+Firefox >= 90
+Safari >= 14
+Edge >= 90

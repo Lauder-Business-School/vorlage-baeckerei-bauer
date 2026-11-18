@@ -1,0 +1,37 @@
+{
+  "name": "Bäckerei Karl Bauer",
+  "short_name": "Bäckerei Bauer",
+  "description": "Handwerklich gebackenes Brot aus dem Weinviertel. 13 Filialen in Niederösterreich.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FBFAF7",
+  "theme_color": "#28477a",
+  "lang": "de-AT",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/logo/logo-diamond.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/logo/logo-diamond.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Filialen & Öffnungszeiten",
+      "url": "/filialen",
+      "description": "Alle Filialen und Öffnungszeiten der Bäckerei Bauer"
+    },
+    {
+      "name": "Sortiment",
+      "url": "/sortiment",
+      "description": "Unser Sortiment vorbestellen"
+    }
+  ]
+}
